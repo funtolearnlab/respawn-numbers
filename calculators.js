@@ -1,0 +1,5 @@
+const read = id => { const raw = document.getElementById(id).value; return raw.trim() === '' ? NaN : Number(raw); };
+const count = n => Number.isSafeInteger(n) && n >= 0;
+document.getElementById('win-button').addEventListener('click', () => { const w=read('wins'), n=read('matches'); document.getElementById('win-result').textContent=count(w)&&count(n)&&n>0&&w<=n?(100*w/n).toFixed(1)+'%':'Check the counts'; });
+document.getElementById('kd-button').addEventListener('click', () => { const k=read('kills'), d=read('deaths'); document.getElementById('kd-result').textContent=!count(k)||!count(d)?'Check the counts':d===0?'Zero deaths':(k/d).toFixed(3); });
+document.getElementById('drop-button').addEventListener('click', () => { const p=read('chance'), n=read('attempts'); const valid=Number.isFinite(p)&&p>=0&&p<=100&&count(n); document.getElementById('drop-result').textContent=valid?(n===0?0:100*(-Math.expm1(n*Math.log1p(-p/100)))).toFixed(1)+'%':'Check the inputs'; });
